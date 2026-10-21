@@ -1,6 +1,6 @@
 # Okta-API-Lifecycle-Automation
 
-### 1) API Token and Postman Setup
+## 1) API Token and Postman Setup
 
 1. In **Okta** open the **Security** dropdown then select **API**
 2. Select the **Tokens** tab then press **Create Token**
@@ -46,9 +46,7 @@
 
 # Image 6
 
----
-
-### 2) Querying Users and Groups
+## 2) Querying Users and Groups
 
 1. On the left of the screen hover over **Okta API Automation** then press the **Plus**
 2. Select the **three dots** and rename it **List Users**
@@ -94,9 +92,9 @@
 
 # Image 13
 
----
+## 3) Joiner: Onboarding a New User
 
-### 3) Joiner
+### Create Department Groups
 
 1. In **Postman** on the left side under **Environments** click **Okta Lab**
 2. Create three new **Variables** with the following names, leave the **Value** empty then **Save:**
@@ -143,6 +141,8 @@
 
 # Image 17.75
 
+### Create and Activate the User
+
 15. On the left hover over **Okta API Automation** and press the **Plus**
 16. Rename the new request **Create User**
 17. Press **Get** to open the dropdown and select **Post** then enter the following:
@@ -172,9 +172,13 @@
 
 # Image 20
 
+### Store the IDs as Environment Variables
+
 24. On the left under the **Environments** dropdown select **Okta Lab**
 25. Fill the **engGroupId, mktGroupId, and userId** with the **id** values we just got
 26. **Save**
+
+### Assign the User to a Group
 
 #Image 21
 
@@ -189,6 +193,8 @@
 31. The bottom of the page should look empty, make sure it says **204 No Content**
 
 # Image 23
+
+### Verify Access
 
 32. On the left under **Okta API Automation** and press **Group Members**
 33. Change the url to the following:
