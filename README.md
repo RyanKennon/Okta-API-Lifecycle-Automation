@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="Images/Header.png" alt="Okta API Lifecycle Automation">
+</p>
+
 # Okta-API-Lifecycle-Automation
 
 This lab automates the full Okta user lifecycle through the Okta REST API for the fictional company Kennon Technologies. Using Postman and PowerShell, I onboarded a new user, moved them between departments, and offboarded them without making changes in the admin console. I then built a PowerShell script that audits every active user’s MFA enrollment and flags anyone without a strong authenticator.
@@ -61,6 +65,9 @@ Create an Okta API token and configure Postman to authenticate with it, so every
    - **Originate From:** Any IP
   
 # Image 1
+<p align="center">
+  <img src="Images/Image%201.PNG" alt="Image 1">
+</p>
 
 4. Copy the **Token Value** and store it somewhere secure. **Okta only shows it once**
 
@@ -75,6 +82,9 @@ Create an Okta API token and configure Postman to authenticate with it, so every
 6. Open the environment dropdown in the top right and select **Okta Lab**
 
 # Image 2
+<p align="center">
+  <img src="Images/Image%202.PNG" alt="Image 2">
+</p>
 
 7. On the left hover over **My Collection** then select the **three dots**
 8. Select **Rename** then enter **Okta API Automation**
@@ -82,6 +92,9 @@ Create an Okta API token and configure Postman to authenticate with it, so every
 10. Hover over **Post Data** then select the **three dots** then **Delete**
 
 # Image 3
+<p align="center">
+  <img src="Images/Image%203.PNG" alt="Image 3">
+</p>
 
 11. In **Postman** click **Okta API Automation** to open its **Settings**
 12. Open the **Authorization** tab then enter the following information then **Save**
@@ -91,6 +104,9 @@ Create an Okta API token and configure Postman to authenticate with it, so every
     - **Add To:** Header
    
 # Image 4
+<p align="center">
+  <img src="Images/Image%204.PNG" alt="Image 4">
+</p>
 
 ### Test the Connection
 
@@ -99,11 +115,17 @@ Create an Okta API token and configure Postman to authenticate with it, so every
 2. Open the **Authorization** tab then make sure that it says **Inherited** next to **API Key**
 
 # Image 5
+<p align="center">
+  <img src="Images/Image%205.PNG" alt="Image 5">
+</p>
 
 3. Press **Send** then **Save**
 4. The response should say **200 OK** and show your admin account's profile
 
 # Image 6
+<p align="center">
+  <img src="Images/Image%206.PNG" alt="Image 6">
+</p>
 
 ---
 
@@ -119,11 +141,17 @@ Use the API to read users, groups, and group membership from the Okta org, confi
     `{{url}}/api/v1/users?limit=25`
 
 # Image 7
+<p align="center">
+  <img src="Images/Image%207.PNG" alt="Image 7">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **200 OK** and list the users in your org
 
 # Image 8
+<p align="center">
+  <img src="Images/Image%208.PNG" alt="Image 8">
+</p>
 
 ### List Groups
 
@@ -133,11 +161,17 @@ Use the API to read users, groups, and group membership from the Okta org, confi
     `{{url}}/api/v1/groups`
 
 # Image 9
+<p align="center">
+  <img src="Images/Image%209.PNG" alt="Image 9">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **200 OK** and list your groups, including the built in **Everyone** group
 
 # Image 10
+<p align="center">
+  <img src="Images/Image%2010.PNG" alt="Image 10">
+</p>
 
 ### List Group Members
 
@@ -148,6 +182,9 @@ The API identifies groups by ID, not name, so look up the Everyone group's ID fi
 2. At the bottom of the page look for **id:** and copy the id
 
 # Image 11
+<p align="center">
+  <img src="Images/Image%2011.PNG" alt="Image 11">
+</p>
 
 3. Next to **Get** enter the following then **Save:**
     `{{url}}/api/v1/groups`
@@ -157,11 +194,17 @@ The API identifies groups by ID, not name, so look up the Everyone group's ID fi
     `{{url}}/api/v1/groups/EVERYONE_GROUP_ID/users`
 
 # Image 12
+<p align="center">
+  <img src="Images/Image%2012.PNG" alt="Image 12">
+</p>
 
 7. Press **Send** then **Save**
 8. The response should say **200 OK** and list every active user in the **Everyone** group
 
 # Image 13
+<p align="center">
+  <img src="Images/Image%2013.PNG" alt="Image 13">
+</p>
 
 ---
 
@@ -178,6 +221,9 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
    - userId
 
 # Image 14
+<p align="center">
+  <img src="Images/Image%2014.PNG" alt="Image 14">
+</p>
 
 ### Create Department Groups
 
@@ -198,12 +244,18 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
 ```
 
 # Image 16
+<p align="center">
+  <img src="Images/Image%2016.PNG" alt="Image 16">
+</p>
 
 6. Press **Send** then **Save**
 7. The response should say **200 OK** and show the new **KT-API-Engineering** group with a type of **OKTA_GROUP**
 8. Save the **Engineering Group id**
 
 # Image 17
+<p align="center">
+  <img src="Images/Image%2017.PNG" alt="Image 17">
+</p>
 
 9. Replace the code with the following code:
 
@@ -217,12 +269,18 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
 ```
 
 # Image 17.5
+<p align="center">
+  <img src="Images/Image%2017.5.PNG" alt="Image 17.5">
+</p>
 
 10. Press **Send** then **Save**
 11. The response should say **200 OK** and show the new **KT-API-Marketing** group with a type of **OKTA_GROUP**
 12. Save the **Marketing Group id**
 
 # Image 17.75
+<p align="center">
+  <img src="Images/Image%2017.75.PNG" alt="Image 17.75">
+</p>
 
 ### Create and Activate the User
 
@@ -250,6 +308,9 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
 ```
 
 # Image 19
+<p align="center">
+  <img src="Images/Image%2019.PNG" alt="Image 19">
+</p>
 
 6. Replace `YOUR_TEST_PASSWORD` with a new password
 7. Press **Send** then **Save**
@@ -257,6 +318,9 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
 9. Copy **Alex's id**
 
 # Image 20
+<p align="center">
+  <img src="Images/Image%2020.PNG" alt="Image 20">
+</p>
 
 ### Store the IDs as Environment Variables
 
@@ -267,6 +331,9 @@ Storing IDs as variables lets later requests reference them without pasting long
 3. **Save**
 
 # Image 21
+<p align="center">
+  <img src="Images/Image%2021.PNG" alt="Image 21">
+</p>
 
 ### Assign the User to a Group
 
@@ -276,11 +343,17 @@ Storing IDs as variables lets later requests reference them without pasting long
     `{{url}}/api/v1/groups/{{engGroupId}}/users/{{userId}}`
 
 # Image 22
+<p align="center">
+  <img src="Images/Image%2022.PNG" alt="Image 22">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **204 No Content** with an empty body, which means Alex was added to the group
 
 # Image 23
+<p align="center">
+  <img src="Images/Image%2023.PNG" alt="Image 23">
+</p>
 
 ### Verify Access
 
@@ -289,27 +362,42 @@ Storing IDs as variables lets later requests reference them without pasting long
     `{{url}}/api/v1/groups/{{engGroupId}}/users`
 
 # Image 24
+<p align="center">
+  <img src="Images/Image%2024.PNG" alt="Image 24">
+</p>
 
 3. Press **Send** then **Save**
 4. The response should say **200 OK** and list Alex as a member of **KT-API-Engineering**
 5. Find **Alex's Profile**
 
 # Image 25
+<p align="center">
+  <img src="Images/Image%2025.PNG" alt="Image 25">
+</p>
 
 6. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
 7. Check for **Alex**
 
 # Image 26
+<p align="center">
+  <img src="Images/Image%2026.PNG" alt="Image 26">
+</p>
 
 8. Open the **Directory** dropdown then select **Groups**
 9. Find the **KT-API-Engineering** group select it and confirm **Alex's** membership
 
 # Image 27
+<p align="center">
+  <img src="Images/Image%2027.PNG" alt="Image 27">
+</p>
 
 10. In an **Incognito Window** log in to **Alex's Okta Account**
 11. On the top right open the **Profile** dropdown then select **Account Settings**
 
 # Image 28
+<p align="center">
+  <img src="Images/Image%2028.PNG" alt="Image 28">
+</p>
 
 ---
 
@@ -335,11 +423,17 @@ Alex transfers from Engineering to Marketing as a Marketing Specialist. Update t
 ```
 
 # Image 29
+<p align="center">
+  <img src="Images/Image%2029.PNG" alt="Image 29">
+</p>
 
 5. Press **Send** then **Save**
 6. The response should say **200 OK** and show Alex's department as **Marketing** and title as **Marketing Specialist**
 
 # Image 30
+<p align="center">
+  <img src="Images/Image%2030.PNG" alt="Image 30">
+</p>
 
 ### Remove the Old Group
 
@@ -351,11 +445,17 @@ Removing the old group before adding the new one follows least privilege, so Ale
     `{{url}}/api/v1/groups/{{engGroupId}}/users/{{userId}}`
 
 # Image 31
+<p align="center">
+  <img src="Images/Image%2031.PNG" alt="Image 31">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **204 No Content**, which means Alex was removed from **KT-API-Engineering**
 
 # Image 32
+<p align="center">
+  <img src="Images/Image%2032.PNG" alt="Image 32">
+</p>
 
 ### Add the New Group
 
@@ -365,11 +465,17 @@ Removing the old group before adding the new one follows least privilege, so Ale
     `{{url}}/api/v1/groups/{{mktGroupId}}/users/{{userId}}`
 
 # Image 33
+<p align="center">
+  <img src="Images/Image%2033.PNG" alt="Image 33">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **204 No Content**, which means Alex was added to **KT-API-Marketing**
 
 # Image 34
+<p align="center">
+  <img src="Images/Image%2034.PNG" alt="Image 34">
+</p>
 
 ### Verify Access
 
@@ -378,16 +484,25 @@ Removing the old group before adding the new one follows least privilege, so Ale
     `{{url}}/api/v1/groups/{{mktGroupId}}/users`
 
 # Image 35
+<p align="center">
+  <img src="Images/Image%2035.PNG" alt="Image 35">
+</p>
 
 3. Press **Send** then **Save**
 4. The response should say **200 OK** and list Alex as a member of **KT-API-Marketing**
 
 # Image 36
+<p align="center">
+  <img src="Images/Image%2036.PNG" alt="Image 36">
+</p>
 
 5. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
 6. Select **Alex Rivera** then open the **Groups** tab then confirm **KT-API-Marketing** appears
 
 # Image 37
+<p align="center">
+  <img src="Images/Image%2037.PNG" alt="Image 37">
+</p>
 
 ---
 
@@ -405,11 +520,17 @@ Clearing sessions signs Alex out everywhere immediately, so an already open sess
    `{{url}}/api/v1/users/{{userId}}/sessions`
 
 # Image 38
+<p align="center">
+  <img src="Images/Image%2038.PNG" alt="Image 38">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **204 No Content**, which means all of Alex's sessions were ended
 
 # Image 39
+<p align="center">
+  <img src="Images/Image%2039.PNG" alt="Image 39">
+</p>
 
 ### Remove Group Access
 
@@ -419,11 +540,17 @@ Clearing sessions signs Alex out everywhere immediately, so an already open sess
    `{{url}}/api/v1/groups/{{mktGroupId}}/users/{{userId}}`
 
 # Image 40
+<p align="center">
+  <img src="Images/Image%2040.PNG" alt="Image 40">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **204 No Content**, which means Alex was removed from **KT-API-Marketing**
 
 # Image 41
+<p align="center">
+  <img src="Images/Image%2041.PNG" alt="Image 41">
+</p>
 
 ### Deactivate the Account
 
@@ -435,11 +562,17 @@ Deactivating instead of deleting keeps the account record available for audits.
    `{{url}}/api/v1/users/{{userId}}/lifecycle/deactivate`
 
 # Image 42
+<p align="center">
+  <img src="Images/Image%2042.PNG" alt="Image 42">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **200 OK** with an empty **{}** body, which means the account was deactivated
 
 # Image 43
+<p align="center">
+  <img src="Images/Image%2043.PNG" alt="Image 43">
+</p>
 
 ### Verify Offboarding
 
@@ -450,11 +583,17 @@ Okta shows a generic sign in error instead of saying the account is deactivated,
     `{{url}}/api/v1/groups/{{mktGroupId}}/users`
 
 # Image 44
+<p align="center">
+  <img src="Images/Image%2044.PNG" alt="Image 44">
+</p>
 
 3. Press **Send** then **Save**
 4. The response should say **200 OK** with an empty list **[]**, since Alex is no longer in the group
 
 # Image 45
+<p align="center">
+  <img src="Images/Image%2045.PNG" alt="Image 45">
+</p>
 
 5. On the left hover over **Okta API Automation** and press the **Plus**
 6. Rename the new request **Get User**
@@ -462,20 +601,32 @@ Okta shows a generic sign in error instead of saying the account is deactivated,
    `{{url}}/api/v1/users/{{userId}}`
 
 # Image 46
+<p align="center">
+  <img src="Images/Image%2046.PNG" alt="Image 46">
+</p>
 
 8. Press **Send** then **Save**
 9. The response should say **200 OK** and show Alex's status as **DEPROVISIONED**
 
 # Image 47
+<p align="center">
+  <img src="Images/Image%2047.PNG" alt="Image 47">
+</p>
 
 10. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
 11. Find **Alex Rivera** and confirm that his **Status** is **Deactivated**
 
 # Image 48
+<p align="center">
+  <img src="Images/Image%2048.PNG" alt="Image 48">
+</p>
 
 12. In an **Incognito Window** attempt to log in to **Alex's Okta Account**
 
 # Image 49
+<p align="center">
+  <img src="Images/Image%2049.PNG" alt="Image 49">
+</p>
 
 ---
 
@@ -507,11 +658,17 @@ Create test users with and without MFA, then run a PowerShell script that audits
 3. Replace **YOUR_TEST_PASSWORD** with a test password
 
 # Image 50
+<p align="center">
+  <img src="Images/Image%2050.PNG" alt="Image 50">
+</p>
 
 4. Press **Send** then **Save**
 5. The response should say **200 OK** and show Jordan's profile with a status of **ACTIVE**
 
 # Image 51
+<p align="center">
+  <img src="Images/Image%2051.PNG" alt="Image 51">
+</p>
 
 6. Repeat the process but enter the following code:
 
@@ -532,11 +689,17 @@ Create test users with and without MFA, then run a PowerShell script that audits
 ```
 
 # Image 52
+<p align="center">
+  <img src="Images/Image%2052.PNG" alt="Image 52">
+</p>
 
 7. Press **Send** then **Save**
 8. The response should say **200 OK** and show Priya's profile with a status of **ACTIVE**
 
 # Image 53
+<p align="center">
+  <img src="Images/Image%2053.PNG" alt="Image 53">
+</p>
 
 9. Repeat the process but enter the following code:
 
@@ -557,11 +720,17 @@ Create test users with and without MFA, then run a PowerShell script that audits
 ```
 
 # Image 54
+<p align="center">
+  <img src="Images/Image%2054.PNG" alt="Image 54">
+</p>
 
 10. Press **Send** then **Save**
 11. The response should say **200 OK** and show Marcus's profile with a status of **ACTIVE**
 
 # Image 55
+<p align="center">
+  <img src="Images/Image%2055.PNG" alt="Image 55">
+</p>
 
 ### Enroll MFA for Test Users
 
@@ -569,6 +738,9 @@ Create test users with and without MFA, then run a PowerShell script that audits
 2. When Okta prompts you to set up an authenticator choose **Okta Verify** and set it up
 
 # Image 56
+<p align="center">
+  <img src="Images/Image%2056.PNG" alt="Image 56">
+</p>
 
 3. Log out of **Priya's Okta Account** then log in to **Jordan's Okta Account**
 4. Set up the **Okta Verify** authenticator for **Jordan's Okta Account**
@@ -581,11 +753,17 @@ Okta can enroll the email authenticator automatically, so the script excludes em
 1. Open **PowerShell 7** then run the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script
 
 # Image 57
+<p align="center">
+  <img src="Images/Image%2057.PNG" alt="Image 57">
+</p>
 
 2. On your desktop a CSV file named **mfa-report.csv** will be created
 3. Open the **mfa-report.csv** file and confirm it looks like the following:
 
 # Image 58
+<p align="center">
+  <img src="Images/Image%2058.PNG" alt="Image 58">
+</p>
 
 ### Verify in the Admin Console
 
@@ -594,11 +772,17 @@ Okta can enroll the email authenticator automatically, so the script excludes em
 3. Confirm **Okta Verify** is showing as her only authenticator
 
 # Image 59
+<p align="center">
+  <img src="Images/Image%2059.PNG" alt="Image 59">
+</p>
 
 4. Open **Marcus Bell's** profile then open the **More Actions** dropdown then select **Reset Authenticators**
 5. Confirm there are **No Authenticators** set up for **Marcus Bell**
 
 # Image 60
+<p align="center">
+  <img src="Images/Image%2060.PNG" alt="Image 60">
+</p>
 
 ---
 
