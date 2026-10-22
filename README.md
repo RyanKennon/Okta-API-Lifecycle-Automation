@@ -364,6 +364,100 @@
 
 ---
 
+## 6) MFA Report Script
+
+1. In **Postman** on the left open the **Create User** request
+2. Replace the code in the body with the following:
+   `{
+  "profile": {
+    "firstName": "Jordan",
+    "lastName": "Lee",
+    "email": "jordan.lee@kennon.tech",
+    "login": "jordan.lee@kennon.tech",
+    "department": "Finance",
+    "title": "Financial Analyst"
+  },
+  "credentials": {
+    "password": { "value": "YOUR_TEST_PASSWORD" }
+  }
+}`
+
+3. Replace **YOUR_TEST_PASSWORD** with your password
+
+# Image 50
+
+4. Press **Send** then **Save**
+5. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 51
+
+6. Repeat the process but enter the following code:
+   `{
+  "profile": {
+    "firstName": "Priya",
+    "lastName": "Shah",
+    "email": "priya.shah@kennon.tech",
+    "login": "priya.shah@kennon.tech",
+    "department": "Engineering",
+    "title": "DevOps Engineer"
+  },
+  "credentials": {
+    "password": { "value": "YOUR_TEST_PASSWORD" }
+  }
+}`
+
+# Image 52
+
+7. Press **Send** then **Save**
+8. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 53
+
+9. Repeat the process but enter the following code:
+    `{
+  "profile": {
+    "firstName": "Marcus",
+    "lastName": "Bell",
+    "email": "marcus.bell@kennon.tech",
+    "login": "marcus.bell@kennon.tech",
+    "department": "Marketing",
+    "title": "Content Strategist"
+  },
+  "credentials": {
+    "password": { "value": "YOUR_TEST_PASSWORD" }
+  }
+}`
+
+# Image 54
+
+10. Press **Send** then **Save**
+11. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 55
+
+12. In an **Incognito Window** log in to **Priya's Okta Account**
+13. When Okta prompts you to set up authenticator choose **Okta Verify** and set it up
+
+# Image 56
+
+14. Log out of **Priya's Okta Account** then log in to **Jordan's Okta Account**
+15. Set up the **Okta Verify** authenticator for **Jordan's Okta Account**
+16. Sign out of **Joran's Okta Account**
+17. Open **Windows Powershell 7**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
