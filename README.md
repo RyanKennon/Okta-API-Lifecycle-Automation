@@ -741,14 +741,12 @@ Revoke the API token once the lab is finished, since it has the same permissions
 2. Select the **Tokens** tab then find **KT-API-Lab**
 3. Press **Revoke** then confirm
 
-# Image 61
 <p align="center">
   <img src="Images/Image%2061.png" alt="Image 61">
 </p>
 
 4. In **Postman** open the **Okta Lab** environment, delete the **apikey** value, then **Save**
 
-# Image 62
 <p align="center">
   <img src="Images/Image%2062.PNG" alt="Image 62">
 </p>
