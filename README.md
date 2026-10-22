@@ -225,6 +225,148 @@
 
 ---
 
+## 4) Mover
+
+### Update the User Profile
+
+1. In **Postman** on the left hover over **Okta API Automation** and press the **Plus**
+2. Rename the new request **Update User**
+3. Press **Get** to open the dropdown and select **Post** then enter the following:
+   `{{url}}/api/v1/users/{{userId}}`
+4. Open the **Body** tab then choose **Raw** then enter the following:
+   `{
+  "profile": {
+    "department": "Marketing",
+    "title": "Marketing Specialist"
+  }
+}`
+
+# Image 29
+
+5. Press **Send** then **Save**
+6. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 30
+
+7. On the left hover over **Okta API Automation** and press the **Plus**
+8. Rename the new request **Remove User from Group**
+9. Press **Get** to open the dropdown and select **Delete** then enter the following:
+    `{{url}}/api/v1/groups/{{engGroupId}}/users/{{userId}}`
+
+# Image 31
+
+10. Press **Send** then **Save**
+11. The bottom of the page should look like the following, make sure it says **204 No Content**
+
+# Image 32
+
+12. On the left hover over **Add User to Group** and press the **three dots** then **Duplicate**
+13. Rename the new request **Add User to Marketing**
+14. Change the URL to the following:
+    `{{url}}/api/v1/groups/{{mktGroupId}}/users/{{userId}}`
+
+# Image 33
+
+15. Press **Send** then **Save**
+16. The bottom of the page should look like the following, make sure it says **204 No Content**
+
+# Image 34
+
+17. Open the **Group Members** request
+18. Change the URL to the following:
+    `{{url}}/api/v1/groups/{{mktGroupId}}/users`
+
+# Image 35
+
+19. Press **Send** then **Save**
+20. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 36
+
+21. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
+22. Select **Alex Rivera** then open the **Groups** tab then confirm **KT-API-Marketing** appears
+
+# Image 37
+
+---
+
+## 5) Leaver
+
+### End Active Sessions
+
+1. In **Postman** on the left hover over **Okta API Automation** and press the **Plus**
+2. Rename the new request **Clear User Sessions**
+3. Press **Get** to open the dropdown and select **Delete** then enter the following:
+   `{{url}}/api/v1/users/{{userId}}/sessions`
+
+# Image 38
+
+4. Press **Send** then **Save**
+5. The bottom of the page should look like the following, make sure it says **204 No Content**
+
+# Image 39
+
+6. On the left hover over **Remove User to Group** and press the **three dots** then **Duplicate**
+7. Rename the new request **Remove User to Marketing**
+8. Press **Get** to open the dropdown and select **Delete** then enter the following:
+   `{{url}}/api/v1/groups/{{mktGroupId}}/users/{{userId}}`
+
+# Image 40
+
+9. Press **Send** then **Save**
+10. The bottom of the page should look like the following, make sure it says **204 No Content**
+
+# Image 41
+
+11. On the left hover over **Okta API Automation** and press the **Plus**
+12. Rename the new request **Deactivate User**
+13. Press **Get** to open the dropdown and select **Post** then enter the following:
+   `{{url}}/api/v1/users/{{userId}}/lifecycle/deactivate`
+
+# Image 42
+
+14. Press **Send** then **Save**
+15. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 43
+
+16. On the left open the **Group Members** request
+17. Replace the URL with the following:
+    `{{url}}/api/v1/groups/{{mktGroupId}}/users`
+
+# Image 44
+
+18. Press **Send** then **Save**
+19. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 45
+
+20. On the left hover over **Okta API Automation** and press the **Plus**
+21. Rename the new request **Get User**
+22. For the URL enter the following:
+   `{{url}}/api/v1/users/{{userId}}`
+
+# Image 46
+
+23. Press **Send** then **Save**
+24. The bottom of the page should look like the following, make sure it says **200 OK**
+
+# Image 47
+
+25. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
+26. Find **Alex Rivera** and confirm that his **Status** is **Deactivated**
+
+# Image 48
+
+27. In an **Incognito Window** attempt log in to **Alex's Okta Account**
+
+# Image 49
+
+---
+
+
+
+
 
 
 
