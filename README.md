@@ -2,6 +2,8 @@
 
 ## 1) API Token and Postman Setup
 
+### Create API Token
+
 1. In **Okta** open the **Security** dropdown then select **API**
 2. Select the **Tokens** tab then press **Create Token**
 3. Create a token with the following information:
@@ -11,23 +13,29 @@
 # Image 1
 
 4. Save the **Token Value**
-5. Create a [Postman](https://web.postman.co) account and sign in
-6. In **Postman** open the dropdown that says **No Environment** then select **Create New Environment**
-7. Name the environment **Okta Lab**
-8. Click where it says **Add Variable** and enter **url** then for **Value** enter **your Okta org's URL**
-9. Click again where it says **Add Variable** and enter **apikey** then for **Value** enter **your API Key**
+
+### Configure Postman
+
+1. Create a [Postman](https://web.postman.co) account and sign in
+2. In **Postman** open the dropdown that says **No Environment** then select **Create New Environment**
+3. Name the environment **Okta Lab**
+4. Click where it says **Add Variable** and enter **url** then for **Value** enter **your Okta org's URL**
+5. Click again where it says **Add Variable** and enter **apikey** then for **Value** enter **your API Key**
 
 # Image 2
 
-10. On the left hover over **My Collection** then select the **three dots**
-11. Select **Rename** then enter **Okta API Automation**
-12. Hover over **Get Data** then select the **three dots** then **Rename** it to **Who am I**
-13. Hover over **Post Data** then select the **three dots** then **Delete**
+6. On the left hover over **My Collection** then select the **three dots**
+
+### Test the Connection
+
+1. Select **Rename** then enter **Okta API Automation**
+2. Hover over **Get Data** then select the **three dots** then **Rename** it to **Who am I**
+3. Hover over **Post Data** then select the **three dots** then **Delete**
 
 # Image 3
 
-14. In **Postman** click **Okta API Automation** to open its **Settings**
-15. Open the **Authorization** tab then press **API Key** then enter the following information then **Save**
+4. In **Postman** click **Okta API Automation** to open its **Settings**
+5. Open the **Authorization** tab then press **API Key** then enter the following information then **Save**
     - **Auth Type:** API Key
     - **Key:** Authorization
     - **Value:** SSWS {{apikey}}
@@ -35,18 +43,20 @@
    
 # Image 4
 
-16. On the left select **Who am I** then replace the url next to **Get** with the following:
+6. On the left select **Who am I** then replace the url next to **Get** with the following:
     `{{url}}/api/v1/users/me`
-17. Open the **Authorization** tab then make sure that it says **Inherited** next to **API Key**
+7. Open the **Authorization** tab then make sure that it says **Inherited** next to **API Key**
 
 # Image 5
 
-18. Press **Send**
-19. The bottom of the page should look like the following, make sure it says **200 OK**
+8. Press **Send**
+9. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 6
 
 ## 2) Querying Users and Groups
+
+### List Users
 
 1. On the left of the screen hover over **Okta API Automation** then press the **Plus**
 2. Select the **three dots** and rename it **List Users**
@@ -60,41 +70,45 @@
 
 # Image 8
 
-6. On the left of the screen hover over **Okta API Automation** then press the **Plus**
-7. Select the **three dots** and rename it **List Groups**
-8. Next to **Get** enter the following url:
+### List Groups
+
+1. On the left of the screen hover over **Okta API Automation** then press the **Plus**
+2. Select the **three dots** and rename it **List Groups**
+3. Next to **Get** enter the following url:
     `{{url}}/api/v1/groups`
 
 # Image 9
 
-9. Press **Send** then **Save**
-10. The bottom of the page should look like the following, make sure it says **200 OK**
+4. Press **Send** then **Save**
+5. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 10
 
-11. Next to **Get** enter the following then **Send:**
+### List Group Members
+
+1. Next to **Get** enter the following then **Send:**
     `{{url}}/api/v1/groups?q=Everyone`
-12. At the bottom of the page look for **id:** and copy the id
+2. At the bottom of the page look for **id:** and copy the id
 
 # Image 11
 
-13. Next to **Get** enter the following then **Save:**
+3. Next to **Get** enter the following then **Save:**
     `{{url}}/api/v1/groups`
-14. On the left of the screen hover over **Okta API Automation** then press the **Plus**
-15. Select the **three dots** and rename it **List Group Members**
-16. Next to **Get** enter the following url:
+4. On the left of the screen hover over **Okta API Automation** then press the **Plus**
+5. Select the **three dots** and rename it **List Group Members**
+6. Next to **Get** enter the following url:
     `{{url}}/api/v1/groups/EVERYONE_GROUP_ID/users`
 
 # Image 12
 
-17. Press **Send** then **Save**
-18. The bottom of the page should look like the following, make sure it says **200 OK**
+7. Press **Send** then **Save**
+8. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 13
 
 ## 3) Joiner: Onboarding a New User
 
-### Create Department Groups
+### Create Environment Variables
 
 1. In **Postman** on the left side under **Environments** click **Okta Lab**
 2. Create three new **Variables** with the following names, leave the **Value** empty then **Save:**
@@ -104,12 +118,14 @@
 
 # Image 14
 
-3. On the left hover over **Okta API Automation** and press the **Plus**
-4. Rename the new request **Create Group**
-5. Press **Get** to open the dropdown and select **Post** then enter the following:
+### Create Department Groups
+
+1. On the left hover over **Okta API Automation** and press the **Plus**
+2. Rename the new request **Create Group**
+3. Press **Get** to open the dropdown and select **Post** then enter the following:
    `{{url}}/api/v1/groups`
-6. Open the **Body** tab then select **Raw** select **JSON** on the dropdown
-7. Paste the following code:
+4. Open the **Body** tab then select **Raw** select **JSON** on the dropdown
+5. Paste the following code:
    `{
   "profile": {
     "name": "KT-API-Engineering",
@@ -119,13 +135,13 @@
 
 # Image 16
 
-8. Press **Send** then **Save**
-9. The bottom of the page should look like the following, make sure it says **200 OK**
-10. Save the **Engineering Group id**
+6. Press **Send** then **Save**
+7. The bottom of the page should look like the following, make sure it says **200 OK**
+8. Save the **Engineering Group id**
 
 # Image 17
 
-11. Replace the code with the following code:
+9. Replace the code with the following code:
     `{
   "profile": {
     "name": "KT-API-Marketing",
@@ -135,20 +151,20 @@
 
 # Image 17.5
 
-12. Press **Send** then **Save**
-13. The bottom of the page should look like the following, make sure it says **200 OK**
-14. Save the **Marketing Group id**
+10. Press **Send** then **Save**
+11. The bottom of the page should look like the following, make sure it says **200 OK**
+12. Save the **Marketing Group id**
 
 # Image 17.75
 
 ### Create and Activate the User
 
-15. On the left hover over **Okta API Automation** and press the **Plus**
-16. Rename the new request **Create User**
-17. Press **Get** to open the dropdown and select **Post** then enter the following:
+1. On the left hover over **Okta API Automation** and press the **Plus**
+2. Rename the new request **Create User**
+3. Press **Get** to open the dropdown and select **Post** then enter the following:
     `{{url}}/api/v1/users?activate=true`
-18. Open the **Body** tab then select **Raw** select **JSON** on the dropdown
-19. Paste the following code:
+4. Open the **Body** tab then select **Raw** select **JSON** on the dropdown
+5. Paste the following code:
     `{
   "profile": {
     "firstName": "Alex",
@@ -165,61 +181,61 @@
 
 # Image 19
 
-20. Replace `YOUR_TEST_PASSWORD` with a new password
-21. Press **Send** then **Save**
-22. The bottom of the page should look like the following, make sure it says **200 OK**
-23. Copy **Alex's id**
+6. Replace `YOUR_TEST_PASSWORD` with a new password
+7. Press **Send** then **Save**
+8. The bottom of the page should look like the following, make sure it says **200 OK**
+9. Copy **Alex's id**
 
 # Image 20
 
 ### Store the IDs as Environment Variables
 
-24. On the left under the **Environments** dropdown select **Okta Lab**
-25. Fill the **engGroupId, mktGroupId, and userId** with the **id** values we just got
-26. **Save**
+1. On the left under the **Environments** dropdown select **Okta Lab**
+2. Fill the **engGroupId, mktGroupId, and userId** with the **id** values we just got
+3. **Save**
+
+# Image 21
 
 ### Assign the User to a Group
 
-#Image 21
-
-27. On the left hover over **Okta API Automation** and press the **Plus**
-28. Rename the new request **Add User to Group**
-29. Press **Get** to open the dropdown and select **Put** then enter the following:
+1. On the left hover over **Okta API Automation** and press the **Plus**
+2. Rename the new request **Add User to Group**
+3. Press **Get** to open the dropdown and select **Put** then enter the following:
     `{{url}}/api/v1/groups/{{engGroupId}}/users/{{userId}}`
 
 # Image 22
 
-30. Press **Send** then **Save**
-31. The bottom of the page should look empty, make sure it says **204 No Content**
+4. Press **Send** then **Save**
+5. The bottom of the page should look empty, make sure it says **204 No Content**
 
 # Image 23
 
 ### Verify Access
 
-32. On the left under **Okta API Automation** and press **Group Members**
-33. Change the url to the following:
+1. On the left under **Okta API Automation** and press **Group Members**
+2. Change the url to the following:
     `{{url}}/api/v1/groups/{{engGroupId}}/users`
 
 # Image 24
 
-34. Press **Send** then **Save**
-35. The bottom of the page should look like the following, make sure it says **200 OK**
-36. Find **Alex's Profile**
+3. Press **Send** then **Save**
+4. The bottom of the page should look like the following, make sure it says **200 OK**
+5. Find **Alex's Profile**
 
 # Image 25
 
-37. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
-38. Check for **Alex**
+6. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
+7. Check for **Alex**
 
 # Image 26
 
-39. On the **Directory** dropdown then select **Groups**
-40. Find the **KT-API-Engineering** group select it and confirm **Alex's** membership
+8. On the **Directory** dropdown then select **Groups**
+9. Find the **KT-API-Engineering** group select it and confirm **Alex's** membership
 
 # Image 27
 
-41. In an **Incognito Window** log in to **Alex's Okta Account**
-42. On the top right open the **Profile** dropdown then select **Account Settings**
+10. In an **Incognito Window** log in to **Alex's Okta Account**
+11. On the top right open the **Profile** dropdown then select **Account Settings**
 
 # Image 28
 
@@ -248,43 +264,49 @@
 
 # Image 30
 
-7. On the left hover over **Okta API Automation** and press the **Plus**
-8. Rename the new request **Remove User from Group**
-9. Press **Get** to open the dropdown and select **Delete** then enter the following:
+### Remove the Old Group
+
+1. On the left hover over **Okta API Automation** and press the **Plus**
+2. Rename the new request **Remove User from Group**
+3. Press **Get** to open the dropdown and select **Delete** then enter the following:
     `{{url}}/api/v1/groups/{{engGroupId}}/users/{{userId}}`
 
 # Image 31
 
-10. Press **Send** then **Save**
-11. The bottom of the page should look like the following, make sure it says **204 No Content**
+4. Press **Send** then **Save**
+5. The bottom of the page should look like the following, make sure it says **204 No Content**
 
 # Image 32
 
-12. On the left hover over **Add User to Group** and press the **three dots** then **Duplicate**
-13. Rename the new request **Add User to Marketing**
-14. Change the URL to the following:
+### Add the New Group
+
+1. On the left hover over **Add User to Group** and press the **three dots** then **Duplicate**
+2. Rename the new request **Add User to Marketing**
+3. Change the URL to the following:
     `{{url}}/api/v1/groups/{{mktGroupId}}/users/{{userId}}`
 
 # Image 33
 
-15. Press **Send** then **Save**
-16. The bottom of the page should look like the following, make sure it says **204 No Content**
+4. Press **Send** then **Save**
+5. The bottom of the page should look like the following, make sure it says **204 No Content**
 
 # Image 34
 
-17. Open the **Group Members** request
-18. Change the URL to the following:
+### Verify Access
+
+1. Open the **Group Members** request
+2. Change the URL to the following:
     `{{url}}/api/v1/groups/{{mktGroupId}}/users`
 
 # Image 35
 
-19. Press **Send** then **Save**
-20. The bottom of the page should look like the following, make sure it says **200 OK**
+3. Press **Send** then **Save**
+4. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 36
 
-21. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
-22. Select **Alex Rivera** then open the **Groups** tab then confirm **KT-API-Marketing** appears
+5. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
+6. Select **Alex Rivera** then open the **Groups** tab then confirm **KT-API-Marketing** appears
 
 # Image 37
 
@@ -306,65 +328,73 @@
 
 # Image 39
 
-6. On the left hover over **Remove User to Group** and press the **three dots** then **Duplicate**
-7. Rename the new request **Remove User to Marketing**
-8. Press **Get** to open the dropdown and select **Delete** then enter the following:
+### Remove Group Access
+
+1. On the left hover over **Remove User to Group** and press the **three dots** then **Duplicate**
+2. Rename the new request **Remove User to Marketing**
+3. Press **Get** to open the dropdown and select **Delete** then enter the following:
    `{{url}}/api/v1/groups/{{mktGroupId}}/users/{{userId}}`
 
 # Image 40
 
-9. Press **Send** then **Save**
-10. The bottom of the page should look like the following, make sure it says **204 No Content**
+4. Press **Send** then **Save**
+5. The bottom of the page should look like the following, make sure it says **204 No Content**
 
 # Image 41
 
-11. On the left hover over **Okta API Automation** and press the **Plus**
-12. Rename the new request **Deactivate User**
-13. Press **Get** to open the dropdown and select **Post** then enter the following:
+### Deactivate the Account
+
+1. On the left hover over **Okta API Automation** and press the **Plus**
+2. Rename the new request **Deactivate User**
+3. Press **Get** to open the dropdown and select **Post** then enter the following:
    `{{url}}/api/v1/users/{{userId}}/lifecycle/deactivate`
 
 # Image 42
 
-14. Press **Send** then **Save**
-15. The bottom of the page should look like the following, make sure it says **200 OK**
+4. Press **Send** then **Save**
+5. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 43
 
-16. On the left open the **Group Members** request
-17. Replace the URL with the following:
+### Verify Offboarding
+
+1. On the left open the **Group Members** request
+2. Replace the URL with the following:
     `{{url}}/api/v1/groups/{{mktGroupId}}/users`
 
 # Image 44
 
-18. Press **Send** then **Save**
-19. The bottom of the page should look like the following, make sure it says **200 OK**
+3. Press **Send** then **Save**
+4. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 45
 
-20. On the left hover over **Okta API Automation** and press the **Plus**
-21. Rename the new request **Get User**
-22. For the URL enter the following:
+5. On the left hover over **Okta API Automation** and press the **Plus**
+6. Rename the new request **Get User**
+7. For the URL enter the following:
    `{{url}}/api/v1/users/{{userId}}`
 
 # Image 46
 
-23. Press **Send** then **Save**
-24. The bottom of the page should look like the following, make sure it says **200 OK**
+8. Press **Send** then **Save**
+9. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 47
 
-25. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
-26. Find **Alex Rivera** and confirm that his **Status** is **Deactivated**
+10. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
+11. Find **Alex Rivera** and confirm that his **Status** is **Deactivated**
 
 # Image 48
 
-27. In an **Incognito Window** attempt log in to **Alex's Okta Account**
+12. In an **Incognito Window** attempt log in to **Alex's Okta Account**
 
 # Image 49
 
 ---
 
 ## 6) MFA Report Script
+
+### Create Test Users
 
 1. In **Postman** on the left open the **Create User** request
 2. Replace the code in the body with the following:
@@ -435,31 +465,38 @@
 
 # Image 55
 
-12. In an **Incognito Window** log in to **Priya's Okta Account**
-13. When Okta prompts you to set up authenticator choose **Okta Verify** and set it up
+### Enroll MFA for Test Users
+
+1. In an **Incognito Window** log in to **Priya's Okta Account**
+2. When Okta prompts you to set up authenticator choose **Okta Verify** and set it up
 
 # Image 56
 
-14. Log out of **Priya's Okta Account** then log in to **Jordan's Okta Account**
-15. Set up the **Okta Verify** authenticator for **Jordan's Okta Account**
-16. Sign out of **Joran's Okta Account**
-17. Open **Windows Powershell 7** the run the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script
+3. Log out of **Priya's Okta Account** then log in to **Jordan's Okta Account**
+4. Set up the **Okta Verify** authenticator for **Jordan's Okta Account**
+5. Sign out of **Joran's Okta Account**
+
+### Run the MFA Report
+
+1. Open **Windows Powershell 7** the run the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script
 
 # Image 57
 
-18. On your desktop an Excel file named **mfa-report.csv** would have been created
-19. Open the **mfa-report.csv** file and confirm it looks like thie following:
+2. On your desktop an Excel file named **mfa-report.csv** would have been created
+3. Open the **mfa-report.csv** file and confirm it looks like thie following:
 
 # Image 58
 
-20. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
-21. Select **Priya Shah** then open the **More Actions** dropdown then select **Reset Authenticators**
-22. Confirm **Okta Verify** is showing as her only authenticator
+### Verify in the Admin Console
+
+1. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
+2. Select **Priya Shah** then open the **More Actions** dropdown then select **Reset Authenticators**
+3. Confirm **Okta Verify** is showing as her only authenticator
 
 # Image 59
 
-23. Open **Marcus Bell's** profile then open the **More Actions** dropdown then select **Reset Authenticators**
-24. Confirm there are **No Authenticators** set up for **Marcus Bell**
+4. Open **Marcus Bell's** profile then open the **More Actions** dropdown then select **Reset Authenticators**
+5. Confirm there are **No Authenticators** set up for **Marcus Bell**
 
 # Image 60
 
