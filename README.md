@@ -2,9 +2,9 @@
   <img src="Images/Header.png" alt="Okta API Lifecycle Automation">
 </p>
 
-# Okta-API-Lifecycle-Automation
+# Okta API Lifecycle Automation
 
-This lab automates the full Okta user lifecycle through the Okta REST API for the fictional company Kennon Technologies. Using Postman and PowerShell, I onboarded a new user, moved them between departments, and offboarded them without making changes in the admin console. I then built a PowerShell script that audits every active user’s MFA enrollment and flags anyone without a strong authenticator.
+This lab automates the full Okta user lifecycle through the Okta REST API for the fictional company Kennon Technologies. Using Postman and PowerShell, I onboarded a new user, moved them between departments, and offboarded them without making changes in the admin console. I then built a PowerShell script that audits every active users MFA enrollment and flags anyone without a strong authenticator.
 
 ---
 
@@ -694,7 +694,13 @@ Create test users with and without MFA, then run a PowerShell script that audits
 
 Okta can enroll the email authenticator automatically, so the script excludes email and only counts strong factors like Okta Verify.
 
-1. Open **PowerShell 7** then run the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script
+1. Open **PowerShell 7** in the folder containing the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script and run the following, replacing the token and URL with your own:
+
+```powershell
+   $env:OKTA_API_TOKEN = "YOUR_TOKEN_VALUE"
+   Unblock-File .\Get-MfaReport.ps1
+   .\Get-MfaReport.ps1 -OktaUrl "https://YOUR_ORG.okta.com"
+```
 
 <p align="center">
   <img src="Images/Image%2057.PNG" alt="Image 57">
