@@ -443,9 +443,9 @@
 14. Log out of **Priya's Okta Account** then log in to **Jordan's Okta Account**
 15. Set up the **Okta Verify** authenticator for **Jordan's Okta Account**
 16. Sign out of **Joran's Okta Account**
-17. Open **Windows Powershell 7**
+17. Open **Windows Powershell 7** the run the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script
 
-
+# Image 57
 
 
 
