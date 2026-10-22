@@ -732,6 +732,30 @@ Okta can enroll the email authenticator automatically, so the script excludes em
 
 ---
 
+## 7) Cleanup
+
+Revoke the API token once the lab is finished, since it has the same permissions as the admin who created it.
+
+1. In the **Okta Administrator Console** open the **Security** dropdown then select **API**
+2. Select the **Tokens** tab then find **KT-API-Lab**
+3. Press **Revoke** then confirm
+
+# Image 61
+<p align="center">
+  <img src="Images/Image%2061.PNG" alt="Image 61">
+</p>
+
+4. In **Postman** open the **Okta Lab** environment, delete the **apikey** value, then **Save**
+
+# Image 62
+<p align="center">
+  <img src="Images/Image%2062.PNG" alt="Image 62">
+</p>
+
+5. Delete the **mfa-report.csv** file from your desktop
+
+---
+
 ## Closing Note
 
 This lab took a user through the full identity lifecycle using only the Okta REST API, from onboarding and a department transfer to offboarding, then audited MFA across the org with a PowerShell script.
