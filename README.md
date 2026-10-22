@@ -49,6 +49,7 @@ This lab automates the full Okta user lifecycle through the Okta REST API for th
 4. [Mover: Department Transfer](#4-mover-department-transfer)
 5. [Leaver: Offboarding](#5-leaver-offboarding)
 6. [MFA Report Script](#6-mfa-report-script)
+7. [Cleanup](#7-cleanup)
 
 ---
 
