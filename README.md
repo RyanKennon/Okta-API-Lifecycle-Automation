@@ -101,7 +101,7 @@ Create an Okta API token and configure Postman to authenticate with it, so every
 # Image 5
 
 3. Press **Send** then **Save**
-4. The bottom of the page should look like the following, make sure it says **200 OK**
+4. The response should say **200 OK** and show your admin account's profile
 
 # Image 6
 
@@ -121,7 +121,7 @@ Use the API to read users, groups, and group membership from the Okta org, confi
 # Image 7
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **200 OK**
+5. The response should say **200 OK** and list the users in your org
 
 # Image 8
 
@@ -135,7 +135,7 @@ Use the API to read users, groups, and group membership from the Okta org, confi
 # Image 9
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **200 OK**
+5. The response should say **200 OK** and list your groups, including the built in **Everyone** group
 
 # Image 10
 
@@ -159,7 +159,7 @@ The API identifies groups by ID, not name, so look up the Everyone group's ID fi
 # Image 12
 
 7. Press **Send** then **Save**
-8. The bottom of the page should look like the following, make sure it says **200 OK**
+8. The response should say **200 OK** and list every active user in the **Everyone** group
 
 # Image 13
 
@@ -200,7 +200,7 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
 # Image 16
 
 6. Press **Send** then **Save**
-7. The bottom of the page should look like the following, make sure it says **200 OK**
+7. The response should say **200 OK** and show the new **KT-API-Engineering** group with a type of **OKTA_GROUP**
 8. Save the **Engineering Group id**
 
 # Image 17
@@ -219,7 +219,7 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
 # Image 17.5
 
 10. Press **Send** then **Save**
-11. The bottom of the page should look like the following, make sure it says **200 OK**
+11. The response should say **200 OK** and show the new **KT-API-Marketing** group with a type of **OKTA_GROUP**
 12. Save the **Marketing Group id**
 
 # Image 17.75
@@ -253,7 +253,7 @@ New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create th
 
 6. Replace `YOUR_TEST_PASSWORD` with a new password
 7. Press **Send** then **Save**
-8. The bottom of the page should look like the following, make sure it says **200 OK**
+8. The response should say **200 OK** and show Alex's profile with a status of **ACTIVE**
 9. Copy **Alex's id**
 
 # Image 20
@@ -278,7 +278,7 @@ Storing IDs as variables lets later requests reference them without pasting long
 # Image 22
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look empty, make sure it says **204 No Content**
+5. The response should say **204 No Content** with an empty body, which means Alex was added to the group
 
 # Image 23
 
@@ -291,7 +291,7 @@ Storing IDs as variables lets later requests reference them without pasting long
 # Image 24
 
 3. Press **Send** then **Save**
-4. The bottom of the page should look like the following, make sure it says **200 OK**
+4. The response should say **200 OK** and list Alex as a member of **KT-API-Engineering**
 5. Find **Alex's Profile**
 
 # Image 25
@@ -337,7 +337,7 @@ Alex transfers from Engineering to Marketing as a Marketing Specialist. Update t
 # Image 29
 
 5. Press **Send** then **Save**
-6. The bottom of the page should look like the following, make sure it says **200 OK**
+6. The response should say **200 OK** and show Alex's department as **Marketing** and title as **Marketing Specialist**
 
 # Image 30
 
@@ -353,7 +353,7 @@ Removing the old group before adding the new one follows least privilege, so Ale
 # Image 31
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **204 No Content**
+5. The response should say **204 No Content**, which means Alex was removed from **KT-API-Engineering**
 
 # Image 32
 
@@ -367,7 +367,7 @@ Removing the old group before adding the new one follows least privilege, so Ale
 # Image 33
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **204 No Content**
+5. The response should say **204 No Content**, which means Alex was added to **KT-API-Marketing**
 
 # Image 34
 
@@ -380,7 +380,7 @@ Removing the old group before adding the new one follows least privilege, so Ale
 # Image 35
 
 3. Press **Send** then **Save**
-4. The bottom of the page should look like the following, make sure it says **200 OK**
+4. The response should say **200 OK** and list Alex as a member of **KT-API-Marketing**
 
 # Image 36
 
@@ -407,7 +407,7 @@ Clearing sessions signs Alex out everywhere immediately, so an already open sess
 # Image 38
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **204 No Content**
+5. The response should say **204 No Content**, which means all of Alex's sessions were ended
 
 # Image 39
 
@@ -421,7 +421,7 @@ Clearing sessions signs Alex out everywhere immediately, so an already open sess
 # Image 40
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **204 No Content**
+5. The response should say **204 No Content**, which means Alex was removed from **KT-API-Marketing**
 
 # Image 41
 
@@ -437,7 +437,7 @@ Deactivating instead of deleting keeps the account record available for audits.
 # Image 42
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **200 OK**
+5. The response should say **200 OK** with an empty **{}** body, which means the account was deactivated
 
 # Image 43
 
@@ -452,7 +452,7 @@ Okta shows a generic sign in error instead of saying the account is deactivated,
 # Image 44
 
 3. Press **Send** then **Save**
-4. The bottom of the page should look like the following, make sure it says **200 OK**
+4. The response should say **200 OK** with an empty list **[]**, since Alex is no longer in the group
 
 # Image 45
 
@@ -464,7 +464,7 @@ Okta shows a generic sign in error instead of saying the account is deactivated,
 # Image 46
 
 8. Press **Send** then **Save**
-9. The bottom of the page should look like the following, make sure it says **200 OK**
+9. The response should say **200 OK** and show Alex's status as **DEPROVISIONED**
 
 # Image 47
 
@@ -509,7 +509,7 @@ Create test users with and without MFA, then run a PowerShell script that audits
 # Image 50
 
 4. Press **Send** then **Save**
-5. The bottom of the page should look like the following, make sure it says **200 OK**
+5. The response should say **200 OK** and show Jordan's profile with a status of **ACTIVE**
 
 # Image 51
 
@@ -534,7 +534,7 @@ Create test users with and without MFA, then run a PowerShell script that audits
 # Image 52
 
 7. Press **Send** then **Save**
-8. The bottom of the page should look like the following, make sure it says **200 OK**
+8. The response should say **200 OK** and show Priya's profile with a status of **ACTIVE**
 
 # Image 53
 
@@ -559,7 +559,7 @@ Create test users with and without MFA, then run a PowerShell script that audits
 # Image 54
 
 10. Press **Send** then **Save**
-11. The bottom of the page should look like the following, make sure it says **200 OK**
+11. The response should say **200 OK** and show Marcus's profile with a status of **ACTIVE**
 
 # Image 55
 
