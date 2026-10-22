@@ -447,9 +447,21 @@
 
 # Image 57
 
+18. On your desktop an Excel file named **mfa-report.csv** would have been created
+19. Open the **mfa-report.csv** file and confirm it looks like thie following:
 
+# Image 58
 
+20. In the **Okta Admin Console** open the **Directory** dropdown then select **People**
+21. Select **Priya Shah** then open the **More Actions** dropdown then select **Reset Authenticators**
+22. Confirm **Okta Verify** is showing as her only authenticator
 
+# Image 59
+
+23. Open **Marcus Bell's** profile then open the **More Actions** dropdown then select **Reset Authenticators**
+24. Confirm there are **No Authenticators** set up for **Marcus Bell**
+
+# Image 60
 
 
 
