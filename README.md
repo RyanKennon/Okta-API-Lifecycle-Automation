@@ -1,6 +1,56 @@
 # Okta-API-Lifecycle-Automation
 
+This lab automates the full Okta user lifecycle through the Okta REST API for the fictional company Kennon Technologies. Using Postman and PowerShell, I onboarded a new user, moved them between departments, and offboarded them without making changes in the admin console. I then built a PowerShell script that audits every active user’s MFA enrollment and flags anyone without a strong authenticator.
+
+---
+
+## Skills Demonstrated
+
+- Okta REST API (users, groups, sessions, lifecycle, and factors endpoints)
+- Postman environments, variables, and inherited authorization
+- Joiner, mover, and leaver lifecycle automation
+- Least privilege group changes during role transfers
+- PowerShell scripting with paginated API calls and CSV reporting
+- MFA enrollment auditing and weak factor identification
+- Secure API token handling
+
+---
+
+## Prerequisites
+
+- An Okta org with Super Administrator access
+- A free [Postman](https://web.postman.co) account
+- PowerShell 7
+- A phone with Okta Verify installed, for MFA enrollment in Phase 6
+
+---
+
+## Environment
+
+| Component | Details |
+|---|---|
+| Identity Provider | Okta Integrator org (Kennon Technologies) |
+| API Client | Postman (web) |
+| Scripting | PowerShell 7.6 on Windows |
+| Test Users | Alex Rivera, Jordan Lee, Priya Shah, Marcus Bell |
+| Test Groups | KT-API-Engineering, KT-API-Marketing |
+
+---
+
+## Table of Contents
+
+1. [API Token and Postman Setup](#1-api-token-and-postman-setup)
+2. [Querying Users and Groups](#2-querying-users-and-groups)
+3. [Joiner: Onboarding a New User](#3-joiner-onboarding-a-new-user)
+4. [Mover: Department Transfer](#4-mover-department-transfer)
+5. [Leaver: Offboarding](#5-leaver-offboarding)
+6. [MFA Report Script](#6-mfa-report-script)
+
+---
+
 ## 1) API Token and Postman Setup
+
+Create an Okta API token and configure Postman to authenticate with it, so every request in the lab inherits the same secure authorization.
 
 ### Create API Token
 
@@ -12,7 +62,7 @@
   
 # Image 1
 
-4. Save the **Token Value**
+4. Copy the **Token Value** and store it somewhere secure. **Okta only shows it once**
 
 ### Configure Postman
 
@@ -20,22 +70,21 @@
 2. In **Postman** open the dropdown that says **No Environment** then select **Create New Environment**
 3. Name the environment **Okta Lab**
 4. Click where it says **Add Variable** and enter **url** then for **Value** enter **your Okta org's URL**
-5. Click again where it says **Add Variable** and enter **apikey** then for **Value** enter **your API Key**
+5. Click again where it says **Add Variable** and enter **apikey** then for **Value** enter **your Token Value**
+   - Set the type to **secret** so the token is hidden
+6. Open the environment dropdown in the top right and select **Okta Lab**
 
 # Image 2
 
-6. On the left hover over **My Collection** then select the **three dots**
-
-### Test the Connection
-
-1. Select **Rename** then enter **Okta API Automation**
-2. Hover over **Get Data** then select the **three dots** then **Rename** it to **Who am I**
-3. Hover over **Post Data** then select the **three dots** then **Delete**
+7. On the left hover over **My Collection** then select the **three dots**
+8. Select **Rename** then enter **Okta API Automation**
+9. Hover over **Get Data** then select the **three dots** then **Rename** it to **Who am I**
+10. Hover over **Post Data** then select the **three dots** then **Delete**
 
 # Image 3
 
-4. In **Postman** click **Okta API Automation** to open its **Settings**
-5. Open the **Authorization** tab then press **API Key** then enter the following information then **Save**
+11. In **Postman** click **Okta API Automation** to open its **Settings**
+12. Open the **Authorization** tab then enter the following information then **Save**
     - **Auth Type:** API Key
     - **Key:** Authorization
     - **Value:** SSWS {{apikey}}
@@ -43,23 +92,29 @@
    
 # Image 4
 
-6. On the left select **Who am I** then replace the url next to **Get** with the following:
+### Test the Connection
+
+1. On the left select **Who am I** then replace the url next to **Get** with the following:
     `{{url}}/api/v1/users/me`
-7. Open the **Authorization** tab then make sure that it says **Inherited** next to **API Key**
+2. Open the **Authorization** tab then make sure that it says **Inherited** next to **API Key**
 
 # Image 5
 
-8. Press **Send**
-9. The bottom of the page should look like the following, make sure it says **200 OK**
+3. Press **Send** then **Save**
+4. The bottom of the page should look like the following, make sure it says **200 OK**
 
 # Image 6
 
+---
+
 ## 2) Querying Users and Groups
+
+Use the API to read users, groups, and group membership from the Okta org, confirming the connection works before making any changes.
 
 ### List Users
 
 1. On the left of the screen hover over **Okta API Automation** then press the **Plus**
-2. Select the **three dots** and rename it **List Users**
+2. Hover over the new request, select the **three dots** and rename it **List Users**
 3. Next to **Get** enter the following url:
     `{{url}}/api/v1/users?limit=25`
 
@@ -73,7 +128,7 @@
 ### List Groups
 
 1. On the left of the screen hover over **Okta API Automation** then press the **Plus**
-2. Select the **three dots** and rename it **List Groups**
+2. Hover over the new request, select the **three dots** and rename it **List Groups**
 3. Next to **Get** enter the following url:
     `{{url}}/api/v1/groups`
 
@@ -86,7 +141,9 @@
 
 ### List Group Members
 
-1. Next to **Get** enter the following then **Send:**
+The API identifies groups by ID, not name, so look up the Everyone group's ID first.
+
+1. In the **List Groups** request, next to **Get** enter the following then **Send:**
     `{{url}}/api/v1/groups?q=Everyone`
 2. At the bottom of the page look for **id:** and copy the id
 
@@ -95,7 +152,7 @@
 3. Next to **Get** enter the following then **Save:**
     `{{url}}/api/v1/groups`
 4. On the left of the screen hover over **Okta API Automation** then press the **Plus**
-5. Select the **three dots** and rename it **List Group Members**
+5. Hover over the new request, select the **three dots** and rename it **Group Members**
 6. Next to **Get** enter the following url:
     `{{url}}/api/v1/groups/EVERYONE_GROUP_ID/users`
 
@@ -106,7 +163,11 @@
 
 # Image 13
 
+---
+
 ## 3) Joiner: Onboarding a New User
+
+New hire Alex Rivera joins Kennon Technologies as a Software Engineer. Create the department groups and Alex’s account, then grant access through group membership, all through the API.
 
 ### Create Environment Variables
 
@@ -126,12 +187,15 @@
    `{{url}}/api/v1/groups`
 4. Open the **Body** tab then select **Raw** select **JSON** on the dropdown
 5. Paste the following code:
-   `{
-  "profile": {
-    "name": "KT-API-Engineering",
-    "description": "Engineering department, managed via API"
-  }
-}`
+
+```json
+   {
+     "profile": {
+       "name": "KT-API-Engineering",
+       "description": "Engineering department, managed via API"
+     }
+   }
+```
 
 # Image 16
 
@@ -142,12 +206,15 @@
 # Image 17
 
 9. Replace the code with the following code:
-    `{
-  "profile": {
-    "name": "KT-API-Marketing",
-    "description": "Marketing department, managed via API"
-  }
-}`
+
+```json
+   {
+     "profile": {
+       "name": "KT-API-Marketing",
+       "description": "Marketing department, managed via API"
+     }
+   }
+```
 
 # Image 17.5
 
@@ -165,19 +232,22 @@
     `{{url}}/api/v1/users?activate=true`
 4. Open the **Body** tab then select **Raw** select **JSON** on the dropdown
 5. Paste the following code:
-    `{
-  "profile": {
-    "firstName": "Alex",
-    "lastName": "Rivera",
-    "email": "alex.rivera@kennon.tech",
-    "login": "alex.rivera@kennon.tech",
-    "department": "Engineering",
-    "title": "Software Engineer"
-  },
-  "credentials": {
-    "password": { "value": "YOUR_TEST_PASSWORD" }
-  }
-}`
+
+```json
+   {
+     "profile": {
+       "firstName": "Alex",
+       "lastName": "Rivera",
+       "email": "alex.rivera@kennon.tech",
+       "login": "alex.rivera@kennon.tech",
+       "department": "Engineering",
+       "title": "Software Engineer"
+     },
+     "credentials": {
+       "password": { "value": "YOUR_TEST_PASSWORD" }
+     }
+   }
+```
 
 # Image 19
 
@@ -190,8 +260,10 @@
 
 ### Store the IDs as Environment Variables
 
+Storing IDs as variables lets later requests reference them without pasting long values into each URL.
+
 1. On the left under the **Environments** dropdown select **Okta Lab**
-2. Fill the **engGroupId, mktGroupId, and userId** with the **id** values we just got
+2. Fill in the **engGroupId, mktGroupId, and userId** with the **id** values we just got
 3. **Save**
 
 # Image 21
@@ -212,7 +284,7 @@
 
 ### Verify Access
 
-1. On the left under **Okta API Automation** and press **Group Members**
+1. On the left under **Okta API Automation** press **Group Members**
 2. Change the url to the following:
     `{{url}}/api/v1/groups/{{engGroupId}}/users`
 
@@ -229,7 +301,7 @@
 
 # Image 26
 
-8. On the **Directory** dropdown then select **Groups**
+8. Open the **Directory** dropdown then select **Groups**
 9. Find the **KT-API-Engineering** group select it and confirm **Alex's** membership
 
 # Image 27
@@ -241,7 +313,9 @@
 
 ---
 
-## 4) Mover
+## 4) Mover: Department Transfer
+
+Alex transfers from Engineering to Marketing as a Marketing Specialist. Update the profile, then remove the old group before adding the new one, so Alex never holds both departments’ access at once.
 
 ### Update the User Profile
 
@@ -250,12 +324,15 @@
 3. Press **Get** to open the dropdown and select **Post** then enter the following:
    `{{url}}/api/v1/users/{{userId}}`
 4. Open the **Body** tab then choose **Raw** then enter the following:
-   `{
-  "profile": {
-    "department": "Marketing",
-    "title": "Marketing Specialist"
-  }
-}`
+
+```json
+   {
+     "profile": {
+       "department": "Marketing",
+       "title": "Marketing Specialist"
+     }
+   }
+```
 
 # Image 29
 
@@ -265,6 +342,8 @@
 # Image 30
 
 ### Remove the Old Group
+
+Removing the old group before adding the new one follows least privilege, so Alex never holds both departments' access at once.
 
 1. On the left hover over **Okta API Automation** and press the **Plus**
 2. Rename the new request **Remove User from Group**
@@ -312,9 +391,13 @@
 
 ---
 
-## 5) Leaver
+## 5) Leaver: Offboarding
+
+Alex leaves Kennon Technologies. End all active sessions, remove group access, and deactivate the account, keeping the record for audit purposes instead of deleting it.
 
 ### End Active Sessions
+
+Clearing sessions signs Alex out everywhere immediately, so an already open session can't keep being used.
 
 1. In **Postman** on the left hover over **Okta API Automation** and press the **Plus**
 2. Rename the new request **Clear User Sessions**
@@ -330,9 +413,9 @@
 
 ### Remove Group Access
 
-1. On the left hover over **Remove User to Group** and press the **three dots** then **Duplicate**
-2. Rename the new request **Remove User to Marketing**
-3. Press **Get** to open the dropdown and select **Delete** then enter the following:
+1. On the left hover over **Remove User from Group** and press the **three dots** then **Duplicate**
+2. Rename the new request **Remove User from Marketing**
+3. Change the URL to the following:
    `{{url}}/api/v1/groups/{{mktGroupId}}/users/{{userId}}`
 
 # Image 40
@@ -343,6 +426,8 @@
 # Image 41
 
 ### Deactivate the Account
+
+Deactivating instead of deleting keeps the account record available for audits.
 
 1. On the left hover over **Okta API Automation** and press the **Plus**
 2. Rename the new request **Deactivate User**
@@ -357,6 +442,8 @@
 # Image 43
 
 ### Verify Offboarding
+
+Okta shows a generic sign in error instead of saying the account is deactivated, which prevents attackers from learning which accounts exist.
 
 1. On the left open the **Group Members** request
 2. Replace the URL with the following:
@@ -386,7 +473,7 @@
 
 # Image 48
 
-12. In an **Incognito Window** attempt log in to **Alex's Okta Account**
+12. In an **Incognito Window** attempt to log in to **Alex's Okta Account**
 
 # Image 49
 
@@ -394,25 +481,30 @@
 
 ## 6) MFA Report Script
 
+Create test users with and without MFA, then run a PowerShell script that audits every active user’s enrolled factors and flags anyone missing a strong authenticator.
+
 ### Create Test Users
 
 1. In **Postman** on the left open the **Create User** request
 2. Replace the code in the body with the following:
-   `{
-  "profile": {
-    "firstName": "Jordan",
-    "lastName": "Lee",
-    "email": "jordan.lee@kennon.tech",
-    "login": "jordan.lee@kennon.tech",
-    "department": "Finance",
-    "title": "Financial Analyst"
-  },
-  "credentials": {
-    "password": { "value": "YOUR_TEST_PASSWORD" }
-  }
-}`
 
-3. Replace **YOUR_TEST_PASSWORD** with your password
+```json
+   {
+     "profile": {
+       "firstName": "Jordan",
+       "lastName": "Lee",
+       "email": "jordan.lee@kennon.tech",
+       "login": "jordan.lee@kennon.tech",
+       "department": "Finance",
+       "title": "Financial Analyst"
+     },
+     "credentials": {
+       "password": { "value": "YOUR_TEST_PASSWORD" }
+     }
+   }
+```
+
+3. Replace **YOUR_TEST_PASSWORD** with a test password
 
 # Image 50
 
@@ -422,19 +514,22 @@
 # Image 51
 
 6. Repeat the process but enter the following code:
-   `{
-  "profile": {
-    "firstName": "Priya",
-    "lastName": "Shah",
-    "email": "priya.shah@kennon.tech",
-    "login": "priya.shah@kennon.tech",
-    "department": "Engineering",
-    "title": "DevOps Engineer"
-  },
-  "credentials": {
-    "password": { "value": "YOUR_TEST_PASSWORD" }
-  }
-}`
+
+```json
+   {
+     "profile": {
+       "firstName": "Priya",
+       "lastName": "Shah",
+       "email": "priya.shah@kennon.tech",
+       "login": "priya.shah@kennon.tech",
+       "department": "Engineering",
+       "title": "DevOps Engineer"
+     },
+     "credentials": {
+       "password": { "value": "YOUR_TEST_PASSWORD" }
+     }
+   }
+```
 
 # Image 52
 
@@ -444,19 +539,22 @@
 # Image 53
 
 9. Repeat the process but enter the following code:
-    `{
-  "profile": {
-    "firstName": "Marcus",
-    "lastName": "Bell",
-    "email": "marcus.bell@kennon.tech",
-    "login": "marcus.bell@kennon.tech",
-    "department": "Marketing",
-    "title": "Content Strategist"
-  },
-  "credentials": {
-    "password": { "value": "YOUR_TEST_PASSWORD" }
-  }
-}`
+
+```json
+   {
+     "profile": {
+       "firstName": "Marcus",
+       "lastName": "Bell",
+       "email": "marcus.bell@kennon.tech",
+       "login": "marcus.bell@kennon.tech",
+       "department": "Marketing",
+       "title": "Content Strategist"
+     },
+     "credentials": {
+       "password": { "value": "YOUR_TEST_PASSWORD" }
+     }
+   }
+```
 
 # Image 54
 
@@ -468,22 +566,24 @@
 ### Enroll MFA for Test Users
 
 1. In an **Incognito Window** log in to **Priya's Okta Account**
-2. When Okta prompts you to set up authenticator choose **Okta Verify** and set it up
+2. When Okta prompts you to set up an authenticator choose **Okta Verify** and set it up
 
 # Image 56
 
 3. Log out of **Priya's Okta Account** then log in to **Jordan's Okta Account**
 4. Set up the **Okta Verify** authenticator for **Jordan's Okta Account**
-5. Sign out of **Joran's Okta Account**
+5. Sign out of **Jordan's Okta Account**
 
 ### Run the MFA Report
 
-1. Open **Windows Powershell 7** the run the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script
+Okta can enroll the email authenticator automatically, so the script excludes email and only counts strong factors like Okta Verify.
+
+1. Open **PowerShell 7** then run the **[Get-MfaReport.ps1](Scripts/Get-MfaReport.ps1)** script
 
 # Image 57
 
-2. On your desktop an Excel file named **mfa-report.csv** would have been created
-3. Open the **mfa-report.csv** file and confirm it looks like thie following:
+2. On your desktop a CSV file named **mfa-report.csv** will be created
+3. Open the **mfa-report.csv** file and confirm it looks like the following:
 
 # Image 58
 
@@ -500,17 +600,12 @@
 
 # Image 60
 
+---
 
+## Closing Note
 
+This lab took a user through the full identity lifecycle using only the Okta REST API, from onboarding and a department transfer to offboarding, then audited MFA across the org with a PowerShell script.
 
+The most useful finding came from the first run of the MFA report, which showed every user as enrolled. Digging into the results revealed that Okta had automatically enrolled the email authenticator, which counted as a factor. Since email is a weak factor, I updated the script to only count strong authenticators like Okta Verify, and the second run correctly flagged the user without real MFA.
 
-
-
-
-
-
-
-
-
-
-
+After finishing the lab, I revoked the API token so it could not be reused.
