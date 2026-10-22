@@ -742,7 +742,7 @@ Revoke the API token once the lab is finished, since it has the same permissions
 
 # Image 61
 <p align="center">
-  <img src="Images/Image%2061.PNG" alt="Image 61">
+  <img src="Images/Image%2061.png" alt="Image 61">
 </p>
 
 4. In **Postman** open the **Okta Lab** environment, delete the **apikey** value, then **Save**
